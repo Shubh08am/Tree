@@ -1,0 +1,38 @@
+//Function to return a list containing the bottom view of the given tree.
+
+class Solution {
+  public:
+    vector <int> bottomView(Node *root) {
+        // Your Code Here
+        queue<pair<Node*,int>>q;
+        map<int,int>mp;
+        vector<int>ans;
+        
+        if(root==NULL) {
+            return ans;
+        }
+        //initially root and 0th line pushed
+        q.push({root,0}) ;
+        while(!q.empty()){
+            auto it = q.front() ; 
+            q.pop() ; 
+            Node*node = it.first ; 
+            int line = it.second ; 
+            
+            //in bottom view we will take last node from every line unlike top view where we took first node
+            mp[line] = node->data ; 
+            //see if left exist and decrease the line 
+            if(node->left!=NULL) {
+                q.push({node->left,line-1}) ;
+            }
+              //see if right exist and increase the line
+            if(node->right!=NULL) {
+                q.push({node->right,line+1}) ;
+            }
+        }
+        for(auto it : mp){
+            ans.push_back(it.second) ;
+        }
+        return ans;
+    }
+};
