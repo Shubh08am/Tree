@@ -1,4 +1,4 @@
-/**
+ /**
  * Definition for a binary tree node.
  * struct TreeNode {
  *     int val;
@@ -34,11 +34,12 @@ class Solution {
 
        //check for bst 
       if(leftSum.maxNode < root->val && root->val<rightSum.minNode){
+          //valid bst take it and try to maximize the sum
          ans = max(ans,leftSum.maxSum + rightSum.maxSum + root->val);
 return NodeInfo(min(root->val,leftSum.minNode)  , max(root->val,rightSum.maxNode) ,leftSum.maxSize + rightSum.maxSize +1 , leftSum.maxSum + rightSum.maxSum + root->val);
       }
-
-      return NodeInfo( INT_MIN ,INT_MAX  ,max(leftSum.maxSize , rightSum.maxSize) , root->val);
+     //not a valid bst
+      return NodeInfo( INT_MIN ,INT_MAX  ,max(leftSum.maxSize , rightSum.maxSize) , 0);
    }
      int maxSumBST(TreeNode* root) {
         int ans=0;
