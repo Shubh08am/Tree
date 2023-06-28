@@ -11,29 +11,36 @@
  */
 class Solution {
 public:
+    TreeNode*recursion(TreeNode* root, int val){
+       if(!root) return new TreeNode(val) ; 
+       if(root->val<val) root->right = recursion(root->right,val);
+       if(root->val>val) root->left = recursion(root->left,val);
+    return root ; 
+    }
     TreeNode* insertIntoBST(TreeNode* root, int val) {
-        if(root==NULL) return new TreeNode(val);
+    //  return recursion(root,val); 
 
-        TreeNode*dummy = root;
-        bool flg = true;
-       while(flg){
+    //ITERATIVE APPROACH 
+        if(!root) return new TreeNode(val) ; 
 
-        if(dummy->val<=val){
-          if(dummy->right!=NULL) dummy=dummy->right;
-          else if(dummy->right==NULL) {
-              dummy->right=new TreeNode(val);//insert new node at leaf 
-               flg=false;
-          }
-        }
-        else if(dummy->val>val){
-         if(dummy->left!=NULL) dummy=dummy->left;
-          else if(dummy->left==NULL) {
-              dummy->left=new TreeNode(val);//insert new node at leaf 
-              flg=false;
-        }
-        }
+        TreeNode*curr = root; 
 
-       }
+        while(1){
+            if(curr->val<val){
+                if(!curr->right){
+                    curr->right=new TreeNode(val);
+                    break;
+                }
+                else curr=curr->right;
+            }
+            if(curr->val>val){
+                if(!curr->left){
+                    curr->left=new TreeNode(val);
+                    break;
+                }
+                else curr=curr->left;
+            }
+        }
     return root;
     }
 };
